@@ -2,7 +2,7 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <title>Cyberpunk Szöveg elemző</title>
+    <title>Szöveg elemző weboldal</title>
     <link rel="stylesheet" href="indexMain.css">
 </head>
 <body>
@@ -18,11 +18,16 @@
     <h2>Eredmény:</h2>
     <div id="result"></div>
 </div>
-
+<div id="wave"></div>
 <script>
 const button = document.getElementById("analyzeBtn");
+const wave = document.getElementById("wave");
 
 button.addEventListener("click", () => {
+
+    wave.classList.remove("wave-active");
+    void wave.offsetWidth;
+    wave.classList.add("wave-active");
 
     button.classList.add("pulse");
     setTimeout(() => button.classList.remove("pulse"), 400);
