@@ -1,0 +1,116 @@
+body {
+    background: radial-gradient(circle at center, #1a1a1a, #000);
+    color: #eee;
+    font-family: Arial, sans-serif;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    color: #fff;
+    text-shadow:
+        0 0 5px #ff0040,
+        0 0 10px #ff0040,
+        0 0 20px #0000ff;
+}
+
+textarea {
+    width: 320px;
+    height: 150px;
+    background: #111;
+    color: #0ff;
+    border: 2px solid #222;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 16px;
+    resize: none;
+    margin-bottom: 15px;
+}
+
+button {
+    background: #000;
+    color: #fff;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: 2px solid #222;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.hover-effect {
+    position: relative;
+    z-index: 1;
+}
+
+.hover-effect::before {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: 12px;
+
+    background: linear-gradient(
+        90deg,
+        #ff003c,
+        #ff00ff,
+        #003cff,
+        #ff003c
+    );
+
+    background-size: 400% 400%;
+    z-index: -1;
+
+    opacity: 0;
+}
+
+.hover-effect:hover::before {
+    opacity: 1;
+    animation: cyberBorder 3s linear infinite;
+}
+
+@keyframes cyberBorder {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 400% 50%; }
+}
+
+.hover-effect:hover {
+    box-shadow:
+        0 0 10px #ff0040,
+        0 0 20px #ff00ff,
+        0 0 30px #003cff;
+}
+
+.pulse {
+    animation: pulseAnim 0.4s ease;
+}
+
+@keyframes pulseAnim {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 5px #fff;
+    }
+    50% {
+        transform: scale(1.08);
+        box-shadow:
+            0 0 20px #ff00ff,
+            0 0 40px #003cff;
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: none;
+    }
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #0ff;
+}

@@ -2,42 +2,36 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <title>Szöveg elemző</title>
-    <style>
-        body {
-            font-family: Arial;
-            text-align: center;
-            margin-top: 50px;
-        }
-        textarea {
-            width: 300px;
-            height: 150px;
-        }
-        button {
-            padding: 10px 20px;
-            margin-top: 10px;
-        }
-    </style>
+    <title>Cyberpunk Szöveg elemző</title>
+    <link rel="stylesheet" href="indexMain.css">
 </head>
 <body>
 
-<h1>Szöveg elemző</h1>
+<div class="container">
+    <h1>Szöveg elemző</h1>
 
-<textarea id="textInput" placeholder="Írj ide szöveget..."></textarea><br>
-<button onclick="analyzeText()">Elemzés</button>
+    <textarea id="textInput" class="hover-effect"
+        placeholder="Írj ide szöveget..."></textarea><br>
 
-<h2>Eredmény:</h2>
-<div id="result"></div>
+    <button id="analyzeBtn" class="hover-effect">Elemzés</button>
+
+    <h2>Eredmény:</h2>
+    <div id="result"></div>
+</div>
 
 <script>
-function analyzeText() {
+const button = document.getElementById("analyzeBtn");
+
+button.addEventListener("click", () => {
+
+    button.classList.add("pulse");
+    setTimeout(() => button.classList.remove("pulse"), 400);
+
     let text = document.getElementById("textInput").value;
 
     fetch("process.php", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: "text=" + encodeURIComponent(text)
     })
     .then(response => response.json())
@@ -47,7 +41,7 @@ function analyzeText() {
             "Karakterek száma: " + data.characters + "<br>" +
             "Leggyakoribb szó: " + data.most_common;
     });
-}
+});
 </script>
 
 </body>

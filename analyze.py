@@ -2,7 +2,6 @@ import sys
 import json
 from collections import Counter
 
-# Ellenőrzés
 if len(sys.argv) < 2:
     print(json.dumps({"error": "Nincs bemeneti szöveg"}))
     sys.exit()
