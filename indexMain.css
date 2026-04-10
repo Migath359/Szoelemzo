@@ -3,10 +3,24 @@ body {
     color: #eee;
     font-family: Arial, sans-serif;
 
+    height: 100vh;
+    margin: 0;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+}
+
+.eye-container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.center-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container {
@@ -31,7 +45,44 @@ textarea {
     padding: 10px;
     font-size: 16px;
     resize: none;
-    margin-bottom: 15px;
+}
+
+.eye {
+    width: 120px;
+    height: 120px;
+
+    background: radial-gradient(circle, #222, #000);
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+
+    box-shadow:
+        0 0 10px #ff00ff,
+        0 0 20px #003cff;
+}
+
+.iris {
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, #ff00ff, #003cff);
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pupil {
+    width: 25px;
+    height: 25px;
+    background: black;
+    border-radius: 50%;
+
+    transition: 0.05s;
 }
 
 button {
@@ -152,4 +203,17 @@ button {
         transform: translate(-50%, -50%) scale(20);
         opacity: 0;
     }
+}
+@keyframes blink {
+    0%, 90%, 100% { transform: scaleY(1); }
+    95% { transform: scaleY(0.1); }
+}
+
+.eye {
+    animation: blink 4s infinite;
+}
+
+@keyframes scanMove {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
 }

@@ -6,12 +6,22 @@
     <link rel="stylesheet" href="indexMain.css">
 </head>
 <body>
-
 <div class="container">
     <h1>Szöveg elemző</h1>
+    <div class="center-wrapper">
+    <div class="eye-container">
 
-    <textarea id="textInput" class="hover-effect"
-        placeholder="Írj ide szöveget..."></textarea><br>
+            <textarea id="textInput" placeholder="Írj ide szöveget..."></textarea>
+
+            <div class="eye">
+                <div class="scan"></div>
+                <div class="iris">
+                    <div class="pupil"></div>
+                </div>
+            </div>
+
+        </div>
+    </div><br>
 
     <button id="analyzeBtn" class="hover-effect">Elemzés</button>
 
@@ -47,7 +57,51 @@ button.addEventListener("click", () => {
             "Leggyakoribb szó: " + data.most_common;
     });
 });
-</script>
+const pupil = document.querySelector(".pupil");
+const eye = document.querySelector(".eye");
+const iris = document.querySelector(".iris");
+const textarea = document.getElementById("textInput");
 
+let lastX = 0;
+let lastY = 0;
+
+document.addEventListener("mousemove", (e) => {
+
+    const rect = eye.getBoundingClientRect();
+
+    const eyeX = rect.left + rect.width / 2;
+    const eyeY = rect.top + rect.height / 2;
+
+    const dx = e.clientX - eyeX;
+    const dy = e.clientY - eyeY;
+
+    const angle = Math.atan2(dy, dx);
+
+    const maxMove = 20;
+
+    const moveX = Math.cos(angle) * maxMove;
+    const moveY = Math.sin(angle) * maxMove;
+
+    pupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
+
+    const speed = Math.abs(e.clientX - lastX) + Math.abs(e.clientY - lastY);
+
+    if (speed > 50) {
+        pupil.style.transform = `translate(${moveX * 1.5}px, ${moveY * 1.5}px)`;
+    }
+
+    lastX = e.clientX;
+    lastY = e.clientY;
+});
+
+textarea.addEventListener("input", () => {
+
+    const len = textarea.value.length;
+
+    let hue = Math.min(300, len * 2);
+
+    iris.style.background = `hsl(${hue}, 100%, 50%)`;
+});
+</script>
 </body>
 </html>
