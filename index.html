@@ -2,16 +2,20 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <title>Szöveg elemző weboldal</title>
+    <title>Main website</title>
     <link rel="stylesheet" href="indexMain.css">
 </head>
 <body>
+<div class="navbar">
+    <a href="index.html" class="nav-item active">Main site</a>
+    <a href="news.html" class="nav-item">Next site</a>
+</div>
 <div class="container">
-    <h1>Szöveg elemző</h1>
+    <h1>Text analyzer</h1>
     <div class="center-wrapper">
     <div class="eye-container">
 
-            <textarea id="textInput" placeholder="Írj ide szöveget..."></textarea>
+            <textarea id="textInput" placeholder="Type text here..."></textarea>
 
             <div class="eye">
                 <div class="scan"></div>
@@ -23,9 +27,9 @@
         </div>
     </div><br>
 
-    <button id="analyzeBtn" class="hover-effect">Elemzés</button>
+    <button id="analyzeBtn" class="hover-effect">Analyze</button>
 
-    <h2>Eredmény:</h2>
+    <h2>Result:</h2>
     <div id="result"></div>
 </div>
 <div id="wave"></div>
@@ -52,9 +56,9 @@ button.addEventListener("click", () => {
     .then(response => response.json())
     .then(data => {
         document.getElementById("result").innerHTML =
-            "Szavak száma: " + data.words + "<br>" +
-            "Karakterek száma: " + data.characters + "<br>" +
-            "Leggyakoribb szó: " + data.most_common;
+            "Words: " + data.words + "<br>" +
+            "Characters: " + data.characters + "<br>" +
+            "Most common word: " + data.most_common;
     });
 });
 const pupil = document.querySelector(".pupil");

@@ -9,6 +9,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 70px;
 }
 
 .eye-container {
@@ -216,4 +217,60 @@ button {
 @keyframes scanMove {
     0% { transform: translateY(-100%); }
     100% { transform: translateY(100%); }
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    background: #0a0a0a;
+    padding: 15px 30px;
+
+    display: flex;
+    gap: 30px;
+
+    border-bottom: 1px solid #222;
+
+    z-index: 1000;
+}
+
+.nav-item {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 18px;
+
+    transition: 0.3s;
+}
+
+.nav-item:hover {
+    color: #0ff;
+    text-shadow:
+        0 0 5px #0ff,
+        0 0 10px #0ff;
+}
+
+.nav-item.active {
+    color: #fff;
+    text-shadow:
+        0 0 5px #ff00ff,
+        0 0 10px #003cff;
+}
+
+.news-container {
+    text-align: center;
+}
+
+.news-container h1 {
+    color: #fff;
+    text-shadow:
+        0 0 5px #ff0040,
+        0 0 10px #ff0040,
+        0 0 20px #003cff;
+}
+
+.news-container p {
+    color: #0ff;
+    font-size: 18px;
 }
