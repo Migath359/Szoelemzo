@@ -36,19 +36,21 @@ document.getElementById("searchBtn").addEventListener("click", () => {
     .then(res => res.json())
     .then(data => {
 
-        let html = "";
+    console.log(data);
 
-        data.articles.forEach(article => {
-            html += `
-                <div class="news-card">
-                    <h3>${article.title}</h3>
-                    <p>${article.desc}</p>
-                </div>
-            `;
-        });
+    let html = "";
 
-        document.getElementById("newsResult").innerHTML = html;
+    data.articles.forEach(article => {
+        html += `
+            <div class="news-card">
+                <h3>${article.title}</h3>
+                <p>${article.desc || "No description"}</p>
+            </div>
+        `;
     });
+
+    document.getElementById("newsResult").innerHTML = html;
+});
 });
 </script>
 </body>
