@@ -2,6 +2,7 @@
     <meta charset="UTF-8">
     <title>This site</title>
     <link rel="stylesheet" href="indexMain.css">
+    <link rel="stylesheet" href="news.css">
 </head>
 <body>
 
@@ -12,10 +13,43 @@
 
 <div class="center-wrapper">
     <div class="news-container">
-        <h1></h1>
-        <p></p>
+        <div class="search-box">
+
+            <input type="text" id="searchInput" placeholder="Search articles...">
+            <button id="searchBtn">Search</button>
+
+        </div>
+
+        <div id="newsResult"></div>
     </div>
 </div>
+<script>
+document.getElementById("searchBtn").addEventListener("click", () => {
 
+    let query = document.getElementById("searchInput").value;
+
+    fetch("search.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: "query=" + encodeURIComponent(query)
+    })
+    .then(res => res.json())
+    .then(data => {
+
+        let html = "";
+
+        data.articles.forEach(article => {
+            html += `
+                <div class="news-card">
+                    <h3>${article.title}</h3>
+                    <p>${article.desc}</p>
+                </div>
+            `;
+        });
+
+        document.getElementById("newsResult").innerHTML = html;
+    });
+});
+</script>
 </body>
 </html>
