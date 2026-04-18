@@ -26,9 +26,7 @@
 
         </div>
     </div><br>
-
     <button id="analyzeBtn" class="hover-effect">Analyze</button>
-
     <h2>Result:</h2>
     <div id="result"></div>
 </div>
@@ -36,9 +34,7 @@
 <script>
 const button = document.getElementById("analyzeBtn");
 const wave = document.getElementById("wave");
-
 button.addEventListener("click", () => {
-
     wave.classList.remove("wave-active");
     void wave.offsetWidth;
     wave.classList.add("wave-active");
@@ -99,11 +95,8 @@ document.addEventListener("mousemove", (e) => {
 });
 
 textarea.addEventListener("input", () => {
-
     const len = textarea.value.length;
-
     let hue = Math.min(300, len * 2);
-
     iris.style.background = `hsl(${hue}, 100%, 50%)`;
 });
 </script>

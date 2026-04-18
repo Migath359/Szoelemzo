@@ -4,30 +4,38 @@
     <link rel="stylesheet" href="indexMain.css">
     <link rel="stylesheet" href="news.css">
 </head>
-<body>
-
 <div class="navbar">
-    <a href="index.html" class="nav-item">Main site</a>
-    <a href="news.html" class="nav-item active">Next site</a>
+    <a href="index.html" class="nav-item">Text analyzer</a>
+    <a href="news.html" class="nav-item active">News site</a>
 </div>
-
 <div class="center-wrapper">
-    <div class="news-container">
-        <div class="search-box">
-
+    <div class="news-container" id="newsContainer">
+        <h1>News</h1>
+        <div class="search-box" id="searchBox">
             <input type="text" id="searchInput" placeholder="Search articles...">
             <button id="searchBtn">Search</button>
-
         </div>
-
-        <div id="newsResult"></div>
     </div>
 </div>
+<div class="news-panel">
+    <div id="newsResult"></div>
+</div>
+<body>
 <script>
+const searchBox = document.getElementById("searchBox");
+const newsContainer = document.getElementById("newsContainer");
+
+
 document.getElementById("searchBtn").addEventListener("click", () => {
 
     let query = document.getElementById("searchInput").value;
 
+    if (!query.trim()) return;
+
+    searchBox.classList.add("top");
+    newsContainer.classList.add("active");
+    const panel = document.querySelector(".news-panel");
+    panel.style.transform = "translate(-50%, 0)";
     fetch("search.php", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -35,22 +43,36 @@ document.getElementById("searchBtn").addEventListener("click", () => {
     })
     .then(res => res.json())
     .then(data => {
-
-    console.log(data);
-
-    let html = "";
-
-    data.articles.forEach(article => {
-        html += `
-            <div class="news-card">
-                <h3>${article.title}</h3>
-                <p>${article.desc || "No description"}</p>
-            </div>
-        `;
+        let html = "";
+        data.articles.forEach(article => {
+            const date = article.date
+                ? new Date(article.date).toLocaleDateString()
+                : "";
+            html += `
+                <div class="news-card">
+                    <div class="news-image">
+                        ${article.image 
+                            ? `<img src="${article.image}">` 
+                            : `<div class="no-image">No image</div>`
+                        }
+                    </div>
+                    <div class="news-content">
+                        <h3>
+                            <a href="${article.url}" target="_blank">
+                                ${article.title}
+                            </a>
+                        </h3>
+                        <div class="news-meta">
+                            <span class="source">${article.source}</span>
+                            <span class="date">${date}</span>
+                        </div>
+                        <p>${article.desc || "No description"}</p>
+                    </div>
+                </div>
+            `;
+        });
+        document.getElementById("newsResult").innerHTML = html;
     });
-
-    document.getElementById("newsResult").innerHTML = html;
-});
 });
 </script>
 </body>
