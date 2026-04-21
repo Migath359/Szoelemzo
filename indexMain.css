@@ -2,10 +2,8 @@ body {
     background: radial-gradient(circle at center, #1a1a1a, #000);
     color: #eee;
     font-family: Arial, sans-serif;
-
     height: 100vh;
     margin: 0;
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -51,16 +49,12 @@ textarea {
 .eye {
     width: 120px;
     height: 120px;
-
     background: radial-gradient(circle, #222, #000);
     border-radius: 50%;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     position: relative;
-
     box-shadow:
         0 0 10px #ff00ff,
         0 0 20px #003cff;
@@ -224,15 +218,11 @@ button {
     top: 0;
     left: 0;
     width: 100%;
-
     background: #0a0a0a;
     padding: 15px 30px;
-
     display: flex;
     gap: 30px;
-
     border-bottom: 1px solid #222;
-
     z-index: 1000;
 }
 
@@ -240,7 +230,9 @@ button {
     color: #aaa;
     text-decoration: none;
     font-size: 18px;
-
+    text-shadow:
+        0 0 5px #ff00ff,
+        0 0 10px #003cff;
     transition: 0.3s;
 }
 
@@ -249,13 +241,6 @@ button {
     text-shadow:
         0 0 5px #0ff,
         0 0 10px #0ff;
-}
-
-.nav-item.active {
-    color: #fff;
-    text-shadow:
-        0 0 5px #ff00ff,
-        0 0 10px #003cff;
 }
 
 .news-container {
