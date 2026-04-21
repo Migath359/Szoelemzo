@@ -2,20 +2,57 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <title>Saved News</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Saved Articles</title>
+    <link rel="stylesheet" href="indexMain.css">
 </head>
 <body>
 
 <div class="navbar">
     <a href="index.html" class="nav-item">Analyzer</a>
     <a href="news.html" class="nav-item">News</a>
-    <a href="saved_news.html" class="nav-item active">Saved News</a>
+    <a href="saved_news.html" class="nav-item active">Saved Articles</a>
 </div>
 
 <div class="saved-container">
-    <h1>Saved News</h1>
+
+    <h1>Saved Articles</h1>
+
     <div id="savedArticles"></div>
+
 </div>
+
+<script>
+fetch("get_saved.php")
+.then(res => res.json())
+.then(data => {
+
+    let html = "";
+
+    data.articles.forEach(article => {
+
+        html += `
+            <div class="saved-card">
+
+                <h3>
+                    <a href="${article.url}" target="_blank">
+                        ${article.title}
+                    </a>
+                </h3>
+
+                <div class="saved-meta">
+                    <span>${article.source}</span>
+                    <span>${article.date}</span>
+                </div>
+
+                <p>${article.desc}</p>
+
+            </div>
+        `;
+    });
+
+    document.getElementById("savedArticles").innerHTML = html;
+});
+</script>
+
 </body>
 </html>
