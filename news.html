@@ -1,13 +1,13 @@
 <head>
     <meta charset="UTF-8">
-    <title>This site</title>
+    <title>News site</title>
     <link rel="stylesheet" href="indexMain.css">
     <link rel="stylesheet" href="news.css">
 </head>
 <div class="navbar">
     <a href="index.html" class="nav-item">Analyzer</a>
     <a href="news.html" class="nav-item">News</a>
-    <a href="saved_news.html" class="nav-item active">Saved News</a>
+    <a href="saved_news.html" class="nav-item active">Saved Articles</a>
 </div>
 <div class="center-wrapper">
     <div class="news-container" id="newsContainer">
@@ -23,14 +23,29 @@
 </div>
 <body>
 <script>
+function saveArticle(article, btn) {
+    fetch("save_article.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(article)
+    })
+    .then(res => res.json())
+    .then(data => {
+        btn.innerText = "Saved";
+        btn.classList.add("saved");
+        btn.disabled = true;
+        setTimeout(() => {
+            btn.classList.remove("saved");
+        }, 600);
+    });
+}
 const searchBox = document.getElementById("searchBox");
 const newsContainer = document.getElementById("newsContainer");
 
-
 document.getElementById("searchBtn").addEventListener("click", () => {
-
     let query = document.getElementById("searchInput").value;
-
     if (!query.trim()) return;
 
     searchBox.classList.add("top");
@@ -50,27 +65,31 @@ document.getElementById("searchBtn").addEventListener("click", () => {
                 ? new Date(article.date).toLocaleDateString()
                 : "";
             html += `
-                <div class="news-card">
-                    <div class="news-image">
-                        ${article.image 
-                            ? `<img src="${article.image}">` 
-                            : `<div class="no-image">No image</div>`
-                        }
-                    </div>
-                    <div class="news-content">
-                        <h3>
-                            <a href="${article.url}" target="_blank">
-                                ${article.title}
-                            </a>
-                        </h3>
-                        <div class="news-meta">
-                            <span class="source">${article.source}</span>
-                            <span class="date">${date}</span>
-                        </div>
-                        <p>${article.desc || "No description"}</p>
-                    </div>
+            <div class="news-card">
+                <div class="news-image">
+                    ${article.image 
+                        ? `<img src="${article.image}">` 
+                        : `<div class="no-image">No image</div>`
+                    }
                 </div>
-            `;
+                <div class="news-content">
+                    <h3>
+                        <a href="${article.url}" target="_blank">
+                            ${article.title}
+                        </a>
+                    </h3>
+                    <div class="news-meta">
+                        <span class="source">${article.source}</span>
+                        <span class="date">${date}</span>
+                    </div>
+                    <p>${article.desc || "No description"}</p>
+                        <button class="save-btn"
+                            onclick='saveArticle(${JSON.stringify(article)}, this)'>
+                            Save
+                        </button>
+                </div>
+            </div>
+        `;
         });
         document.getElementById("newsResult").innerHTML = html;
     });
