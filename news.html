@@ -65,31 +65,30 @@ document.getElementById("searchBtn").addEventListener("click", () => {
                 ? new Date(article.date).toLocaleDateString()
                 : "";
             html += `
-            <div class="news-card">
-                <div class="news-image">
-                    ${article.image 
-                        ? `<img src="${article.image}">` 
-                        : `<div class="no-image">No image</div>`
-                    }
-                </div>
-                <div class="news-content">
-                    <h3>
-                        <a href="${article.url}" target="_blank">
-                            ${article.title}
-                        </a>
-                    </h3>
-                    <div class="news-meta">
-                        <span class="source">${article.source}</span>
-                        <span class="date">${date}</span>
+                <div class="news-card">
+                    <div class="news-image">
+                        ${article.image 
+                            ? `<img src="${article.image}">` 
+                            : `<div class="no-image">No image</div>`
+                        }
                     </div>
-                    <p>${article.desc || "No description"}</p>
-                        <button class="save-btn"
-                            onclick='saveArticle(${JSON.stringify(article)}, this)'>
+                    <div class="news-content">
+                        <h3>
+                            <a href="${article.url}" target="_blank">
+                                ${article.title}
+                            </a>
+                        </h3>
+                        <div class="news-meta">
+                            <span class="source">${article.source}</span>
+                            <span class="date">${date}</span>
+                        </div>
+                        <p>${article.desc || "No description"}</p>
+                        <button class="save-btn" onclick='saveArticle(${JSON.stringify(article)}, this)'>
                             Save
                         </button>
+                    </div>
                 </div>
-            </div>
-        `;
+            `;
         });
         document.getElementById("newsResult").innerHTML = html;
     });
