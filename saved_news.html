@@ -4,55 +4,66 @@
     <meta charset="UTF-8">
     <title>Saved Articles</title>
     <link rel="stylesheet" href="indexMain.css">
+    <link rel="stylesheet" href="news.css">
 </head>
 <body>
-
 <div class="navbar">
     <a href="index.html" class="nav-item">Analyzer</a>
     <a href="news.html" class="nav-item">News</a>
     <a href="saved_news.html" class="nav-item active">Saved Articles</a>
 </div>
-
 <div class="saved-container">
-
     <h1>Saved Articles</h1>
-
     <div id="savedArticles"></div>
-
 </div>
-
 <script>
+function deleteArticle(url, btn) {
+    btn.innerText = "Deleting...";
+    btn.classList.add("deleting");
+    btn.disabled = true;
+
+    fetch("delete_article.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ url: url })
+    })
+    .then(res => res.json())
+    .then(data => {
+        const card = btn.closest(".saved-card");
+        card.classList.add("removing");
+        setTimeout(() => {
+            card.remove();
+        }, 400);
+    });
+}
 fetch("get_saved.php")
 .then(res => res.json())
 .then(data => {
-
     let html = "";
-
     data.articles.forEach(article => {
-
         html += `
             <div class="saved-card">
-
                 <h3>
                     <a href="${article.url}" target="_blank">
                         ${article.title}
                     </a>
                 </h3>
-
                 <div class="saved-meta">
                     <span>${article.source}</span>
                     <span>${article.date}</span>
                 </div>
-
                 <p>${article.desc}</p>
-
+                <button class="delete-btn"
+                    onclick='deleteArticle("${article.url}", this)'>
+                    Delete
+                </button>
             </div>
         `;
     });
-
     document.getElementById("savedArticles").innerHTML = html;
 });
 </script>
-
 </body>
 </html>

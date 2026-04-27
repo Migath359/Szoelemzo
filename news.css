@@ -40,11 +40,8 @@
     transition: 0.3s;
 }
 
-.news-card:hover {
-    transform: translateY(-5px) scale(1.01);
-    box-shadow:
-        0 0 10px #ff00ff,
-        0 0 20px #003cff;
+.news-card:hover .delete-btn {
+    opacity: 1;
 }
 
 .news-image {
@@ -219,14 +216,18 @@
     position: relative;
 }
 
+.news-card.removing {
+    opacity: 0;
+    transform: scale(0.9) translateY(10px);
+    transition: 0.4s ease;
+}
+
 .save-btn {
     position: absolute;
     bottom: 12px;
     right: 12px;
-
     background: #111;
     color: #0ff;
-
     border: 1px solid #333;
     border-radius: 8px;
     padding: 8px 14px;
@@ -251,4 +252,31 @@
         0 0 10px #00ffcc,
         0 0 20px #00ffcc;
     transform: scale(1.1);
+}
+
+.delete-btn {
+    display: block;
+}
+
+.delete-btn:hover {
+    color: #fff;
+    box-shadow:
+        0 0 8px #ff0000,
+        0 0 16px #ff0040;
+    transform: scale(1.05);
+}
+
+.delete-btn.deleting {
+    color: #fff;
+    background: #330000;
+    box-shadow:
+        0 0 10px #ff0000,
+        0 0 20px #ff0040;
+    animation: deletePulse 0.4s ease;
+}
+
+@keyframes deletePulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
 }
