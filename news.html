@@ -8,6 +8,7 @@
     <a href="index.html" class="nav-item">Analyzer</a>
     <a href="news.html" class="nav-item">News</a>
     <a href="saved_news.html" class="nav-item active">Saved Articles</a>
+    <a href="saved_news_pgre.html" class="nav-item">Saved Article (PG)</a>
 </div>
 <div class="center-wrapper">
     <div class="news-container" id="newsContainer">
@@ -43,6 +44,21 @@ function saveArticle(article, btn) {
 }
 const searchBox = document.getElementById("searchBox");
 const newsContainer = document.getElementById("newsContainer");
+
+function saveArticlePG(article, btn) {
+    fetch("save_article_pgre.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(article)
+    })
+    .then(res => res.json())
+    .then(() => {
+        btn.innerText = "SAVED";
+        btn.classList.add("saved");
+    });
+}
 
 document.getElementById("searchBtn").addEventListener("click", () => {
     let query = document.getElementById("searchInput").value;
@@ -85,6 +101,10 @@ document.getElementById("searchBtn").addEventListener("click", () => {
                         <p>${article.desc || "No description"}</p>
                         <button class="save-btn" onclick='saveArticle(${JSON.stringify(article)}, this)'>
                             Save
+                        </button>
+                        <button class="save-btn-pg"
+                            onclick='saveArticlePG(${JSON.stringify(article)}, this)'>
+                            Save_pgre
                         </button>
                     </div>
                 </div>
