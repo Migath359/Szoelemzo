@@ -11,6 +11,7 @@
     <a href="index.html" class="nav-item">Analyzer</a>
     <a href="news.html" class="nav-item">News</a>
     <a href="saved_news.html" class="nav-item active">Saved Articles</a>
+    <a href="saved_news_pgre.html" class="nav-item">Saved Article (PG)</a>
 </div>
 <div class="saved-container">
     <h1>Saved Articles</h1>
@@ -38,6 +39,7 @@ function deleteArticle(url, btn) {
         }, 400);
     });
 }
+
 fetch("get_saved.php")
 .then(res => res.json())
 .then(data => {

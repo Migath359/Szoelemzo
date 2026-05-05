@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Saved Article (PG)</title>
+    <link rel="stylesheet" href="indexMain.css">
+</head>
+
+<body>
+<div class="navbar">
+    <a href="index.html" class="nav-item">Analyzer</a>
+    <a href="news.html" class="nav-item">News</a>
+    <a href="saved_news.html" class="nav-item active">Saved Articles</a>
+    <a href="saved_news_pgre.html" class="nav-item">Saved Article (PG)</a>
+</div>
+<div class="container">
+    <h1>Saved Article (PG)</h1>
+    <div id="savedArticles"></div>
+</div>
+
+<script>
+function deleteArticlePG(url, btn) {
+
+    fetch("delete_article_pgre.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ url })
+    })
+    .then(res => res.json())
+    .then(() => {
+
+        const card = btn.closest(".news-card");
+        card.classList.add("removing");
+
+        setTimeout(() => card.remove(), 400);
+    });
+}
+fetch("get_saved_pgre.php")
+.then(res => res.json())
+.then(data => {
+    let html = "";
+    data.articles.forEach(article => {
+        const date = article.date
+            ? new Date(article.date).toLocaleDateString()
+            : "";
+        html += `
+            <div class="news-card">
+                <div class="news-image">
+                    ${article.image 
+                        ? `<img src="${article.image}">` 
+                        : `<div class="no-image">No image</div>`
+                    }
+                </div>
+                <div class="news-content">
+                    <h3>
+                        <a href="${article.url}" target="_blank">
+                            ${article.title}
+                        </a>
+                    </h3>
+                    <div class="news-meta">
+                        <span>${article.source}</span>
+                        <span>${date}</span>
+                    </div>
+                    <p>${article.desc || ""}</p>
+                    <button class="delete-btn-pg"
+                        onclick='deleteArticlePG("${article.url}", this)'>
+                        Delete
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+    document.getElementById("savedArticles").innerHTML = html;
+});
+</script>
+
+</body>
+</html>
